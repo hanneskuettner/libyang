@@ -211,10 +211,27 @@ test_simple(void **state)
 {
     struct state *st = (*state);
 
+    st->set = lyd_find_path(st->dt, "/ietf-interfaces:*");
+    assert_ptr_not_equal(st->set, NULL);
+    assert_int_equal(st->set->number, 1);
+    ly_set_free(st->set);
+    st->set = NULL;
+
+    st->set = lyd_find_path(st->dt, "/ietf-yang-library:*");
+    assert_ptr_not_equal(st->set, NULL);
+    assert_int_equal(st->set->number, 0);
+    ly_set_free(st->set);
+    st->set = NULL;
+
     st->set = lyd_find_path(st->dt, "/ietf-interfaces:interfaces");
     assert_ptr_not_equal(st->set, NULL);
     assert_int_equal(st->set->number, 1);
     ly_set_free(st->set);
+    st->set = NULL;
+
+    st->set = lyd_find_path(st->dt, "/ietf-interfaces:interfaces//*");
+    assert_ptr_not_equal(st->set, NULL);
+    assert_int_equal(st->set->number, 68);
     st->set = NULL;
 
     st->set = lyd_find_path(st->dt, "/ietf-interfaces:interfaces/interface");
