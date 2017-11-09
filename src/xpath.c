@@ -5265,7 +5265,7 @@ moveto_snode(struct lyxp_set *set, struct lys_node *cur_node, const char *qname,
             /* it can actually be in any module, it's all <running>, but we know it's moveto_mod (if set),
              * so use it directly (root node itself is useless in this case) */
             sub = NULL;
-            while ((sub = lys_getnext(sub, NULL, (moveto_mod ? moveto_mod : lys_node_module(cur_node)), 0))) {
+            while ((sub = lys_getnext(sub, NULL, (moveto_mod ? moveto_mod : lys_node_module(sub)), 0))) {
                 if (!moveto_snode_check(sub, root_type, name_dict, (moveto_mod ? moveto_mod : lys_node_module(sub)), options)) {
                     idx = set_snode_insert_node(set, sub, LYXP_NODE_ELEM);
                     /* we need to prevent these nodes to be considered in this moveto */
